@@ -1,0 +1,62 @@
+{
+  "loanList": [
+  {
+    "id": "2001",
+    "loanAmount": 1400,
+    "status": "pendingConsent",
+    "outstanding": 0,
+    "activestatus": false,
+    "amountAvailableToBorrow": 1400,
+    "borrower" : [
+      {
+        "id": 1,
+        "firstName": "User1",
+        "middleName": "User1",
+        "lastName": "User1",
+        "emailId": "User1@gmail.com",
+        "phone": 7894561230,
+        "acknowledgementStatus" : false
+      },
+      {
+        "id": 2,
+        "firstName": "User1",
+        "middleName": "User1",
+        "lastName": "User1",
+        "emailId": "User1@gmail.com",
+        "phone": 7894561231,
+        "acknowledgementStatus" : true
+      }
+    ]
+  },
+  {
+    "id": "2002",
+    "loanAmount": 2400,
+    "status": "pendingApproval",
+    "outstanding": 0,
+    "activestatus": false,
+    "amountAvailableToBorrow": 2400,
+    "borrower" : [
+      {
+        "id": 3,
+        "firstName": "User3",
+        "middleName": "User3",
+        "lastName": "User3",
+        "emailId": "User3@gmail.com",
+        "phone": 7894561232,
+        "acknowledgementStatus" : true
+      },
+      {
+        "id": 4,
+        "firstName": "User4",
+        "middleName": "User4",
+        "lastName": "User4",
+        "emailId": "User4@gmail.com",
+        "phone": 7894561233,
+        "acknowledgementStatus" : true
+      }
+    ]
+    
+
+  }
+  ]
+}

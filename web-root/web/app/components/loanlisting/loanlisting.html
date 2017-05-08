@@ -1,0 +1,209 @@
+<div class="container">
+    <div class="row loan-list">
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Loan Listing</h3>
+               </div>
+               <div class="panel-body app-panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Loan Number</th>
+                                    <th ng-if="$ctrl.currentUserRole === 'financialAdvisor'">Borrower ID</th>
+                                    <th>Loan Status</th>
+                                    <th>Outstanding</th>
+                                    <th>Approved Loan Amount</th>
+                                    <th>Status</th>
+                                    <!-- <th>Margin Call Amt.</th>
+                                    <th>Margin Call Due Date</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat-start="loan in $ctrl.loanList" ng-class="{'danger': (!loan.isActive && loan.status ==='approved')}">
+                                    <td><a id="link-3" ng-click="$ctrl.navigateToLoanDetails(loan.id)">{{loan.loanId}}</a></td>
+                                    <td><a ng-if="$ctrl.currentUserRole === 'financialAdvisor'" ng-bind = "loan.borrwer.length == 1 ? '{{loan.borrower[0].id}}' : 'MultipleBorrowers'" ng-click = "$ctrl.multipleborrowerList(loan)"></a>
+                                    </td>
+                                    <td>
+                                      <span>{{ (!loan.isActive && loan.status =='approved') ? 'Frozen' : loan.status }}</span>
+                                    </td>
+                                    <td>
+                                      <span>{{ (!loan.isActive && loan.status =='approved') ? 'NA' : loan.portfolioAmount }}</span>
+                                    </td>
+                                    <td>
+                                          {{loan.loanAmount}}
+                                   
+                                    </td>
+                                    <td ng-click = "$ctrl.borrowerList(loan)" data-toggle="modal" data-target="#myModal"> 
+                                      <div class="progress">
+                                         <div ng-class="(loan.percentageApproved < 100 || 0 ) ? 'progress-bar progress-bar-danger progress-bar-striped' : 'progress-bar progress-bar-success progress-bar-striped'" role="progressbar"
+
+                                        aria-valuenow="{{loan.percentageApproved}}" aria-valuemin="0" aria-valuemax="100" style="width:{{loan.percentageStatus}}%">
+                                         </div>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr ng-if="loan.showBorrowerList" ng-repeat-end="" >
+                                   <td><b>Borrower Details</b></td>
+                                   <td colspan="6">
+                              <table class="table table-condensed table-hover table-bordered">
+                                  <thead class= "bg-warning">
+                                    <tr>
+                                        <td>BorrowerId</td>
+                                        <td>FirstName</td>
+                                        <td>Email</td>
+                                        <td>Phone</td>
+                                     </tr>
+                                  </thead>
+                                  <tbody>
+                                        <tr ng-repeat = "borrower in loan.borrowers">
+                                            <td>{{borrower.id}}</td>
+                                            <td>{{borrower.fname}}</td>
+                                            <td>{{borrower.email}}</td>
+                                            <td>{{borrower.phone}}</td>
+                                        </tr>
+                                  </tbody>
+                              </table>
+                                   </td>    
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+               </div>
+            </div>                     
+        </div>
+
+        <div class="modal fade" id="myModal" role="dialog">
+         <div class="modal-dialog modal-lg">
+                       Modal content
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Loan Status</h4>
+        </div>
+        <div class="modal-body ">
+          <table class="table table-condensed">
+            <thead>
+              <th>BorrowerId</th>
+              <th>BorrowerName</th>
+              <th>PhoneNo.</th>
+              <th>Status</th>
+
+            </thead>
+            <tbody>
+              <tr  ng-class="borrower.status == false ? 'bg-danger' : 'bg-success'" ng-repeat="borrower in $ctrl.ListOfBorrowers track by $index">
+                <td>{{borrower.id}}</td>
+                <td>{{borrower.firstName}}</td>
+                <td>{{borrower.phone}}</td>
+                <td ng-bind="borrower.status == false ? 'not approved' : 'approved'"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> 
+       
+
+
+
+
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-if="$ctrl.currentUserRole === 'custodian' || $ctrl.currentUserRole === 'financialAdvisor'">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12" ng-if="$ctrl.showSecurityMessage">
+                    <div class="security-status" ng-class="$ctrl.securityUpdateStatus ? 'alert-success' : 'alert-danger'">
+                       <strong>{{$ctrl.securityUpdateMessage}}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Loan Securities</h3>
+               </div>
+               <div class="panel-body app-panel-body">
+                 <div class="row">
+                  <div class="col-sm-6 col-md-4 col-lg-4">
+                   <div class="list-group">
+                      <a class="list-group-item " ng-click ="$ctrl.addRow()">
+                        <i class="fa fa fa-plus fa-fw" aria-hidden="true"></i>
+                        <b>ADD SECURITY TO UPDATE PRICE</b>
+                        </a>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="row" ng-if = "$ctrl.showSecurityTable">
+                      <div class="col-sm-12 table-responsive" >
+                        <table  class= "table table-hover table-striped table-bordered"  >
+                          <thead class="bg-info">
+                            <tr>
+                                 <th>Select Security</th>
+                                 <th>Security ID</th>
+                                 <th>Security Name</th>
+                                 <th>Security Existing Price</th>
+                                 <th>New Price</th>
+                                 <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="row in $ctrl.addedRows track by $index " >
+                                 <td > 
+                                    <select ng-model="row.dropdownValue" ng-options="item for item in row.dropdownValues" ng-change = "$ctrl.getRowBySelection(row)" >
+                                            <option title="Select Security" value="">SELECT SECURITY</option>
+                                     </select>
+                                 </td>
+                                 <td>{{row.id}}</td>
+                                 <td>{{row.name}}</td>
+                                 <td>{{row.price}}</td>
+                                 <td>
+                                      <input type="number" ng-model="row.newPrice" ng-disabled="row.editPrice"  autofocus />
+                                 </td>
+                                 <td>
+                                      <button class="btn btn-danger" ng-click="$ctrl.deleteRow(row)">DELETE</button>
+                                  </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                
+                     <div class="col-md-12 col-lg-12 col-sm-12">
+                          <button class="btn btn-success pull-right" ng-disabled ="" ng-click="$ctrl.updateSecurityPrice()">UPDATE</button>
+                      </div>
+                </div>
+               </div>
+            </div>           
+        </div>
+
+
+        <!-- <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Lorem Ipsum</h3>
+               </div>
+               <div class="panel-body app-panel-body"></div>
+            </div>           
+        </div> 
+        <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Lorem Ipsum</h3>
+               </div>
+               <div class="panel-body app-panel-body"></div>
+            </div>          
+        </div> 
+        <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Lorem Ipsum</h3>
+               </div>
+               <div class="panel-body app-panel-body"></div>
+            </div>           
+        </div>  -->
+    </div>
+</div>
+
+
+
+

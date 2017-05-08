@@ -1,0 +1,140 @@
+<div class="container">
+    <div class="row loan-list">
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+        	 <!-- <div class="panel panel-primary">
+                         
+                         <div class="panel-body app-panel-body">
+                                -->
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-if="$ctrl.currentUserRole === 'custodian' || $ctrl.currentUserRole === 'financialAdvisor'">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12" ng-if="$ctrl.showSecurityMessage">
+                    <div class="security-status" ng-class="$ctrl.securityUpdateStatus ? 'alert-success' : 'alert-danger'">
+                       <strong>{{$ctrl.securityUpdateMessage}}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Loan Securities</h3>
+               </div>
+               <div class="panel-body app-panel-body">
+                 <div class="row">
+                  <div class="col-sm-6 col-md-4 col-lg-4">
+                   <div class="list-group">
+                      <a class="list-group-item " ng-click ="$ctrl.addRow()">
+                        <i class="fa fa fa-plus fa-fw" aria-hidden="true"></i>
+                        <b>ADD SECURITY TO UPDATE PRICE</b>
+                        </a>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="row" ng-if = "$ctrl.showSecurityTable">
+                      <div class="col-sm-12 table-responsive" >
+                        <table  class= "table table-hover table-striped table-bordered"  >
+                          <thead class="bg-info">
+                            <tr>
+                                 <th>Select Security</th>
+                                 <th>Security ID</th>
+                                 <th>Security Name</th>
+                                 <th>Security Existing Price</th>
+                                 <th>New Price</th>
+                                 <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="row in $ctrl.addedRows track by $index " >
+                                 <td > 
+                                    <select ng-model="row.dropdownValue" ng-options="item for item in row.dropdownValues" ng-change = "$ctrl.getRowBySelection(row)" >
+                                            <option title="Select Security" value="">SELECT SECURITY</option>
+                                     </select>
+                                 </td>
+                                 <td>{{row.id}}</td>
+                                 <td>{{row.name}}</td>
+                                 <td>{{row.price}}</td>
+                                 <td>
+                                      <input type="number" ng-model="row.newPrice" ng-disabled="row.editPrice"  autofocus />
+                                 </td>
+                                 <td>
+                                      <button class="btn btn-danger" ng-click="$ctrl.deleteRow(row)">DELETE</button>
+                                  </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                
+                     <div class="col-md-12 col-lg-12 col-sm-12">
+                          <button class="btn btn-success pull-right" ng-disabled ="" ng-click="$ctrl.updateSecurityPrice()">UPDATE</button>
+                      </div>
+                </div>
+               </div>
+            </div>           
+        </div>
+         <!--  <div class="col-sm-4">
+           <input type="text" class="form-control " placeholder ="enter the phone number" ng-model="$ctrl.phoneNumber" name="phoneNumber"  ng-pattern="/^\s*-?[0-9]{1,10}\s*$/" />
+           <div class="text-danger"  ng-show="myForm.phoneNumber.$error.pattern"> invalid phone number!! </div>
+         </div>
+               <div class="col-sm-4">
+                   <button class="btn btn-success" ng-disabled="myForm.phoneNumber.$error.pattern" ng-click="$ctrl.getCollateralAccount()">search
+                   </button>
+               </div> -->
+        
+        <!-- <div class="row">
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12"> -->
+        <!-- <div class="row">
+          <div class="col-sm-12">
+             <div class="table-responsive">
+                        <table class="table table-hover table-bordered" ng-if = "$ctrl.collateralAccountShow">
+                          <thead class="bg-info">
+                            <tr>
+                              <td>Show Security Details</td>
+                              <td> CollateralAccount ID </td>
+                              <td> CollateralAccount Name</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat-start = "collateralAccount in $ctrl.CollateralAccount">
+                              <td><button type="button" ng-click="$ctrl.showSecurity(collateralAccount)">
+                                  <span ng-bind="collateralAccount.showSecurityList ? '-' : '+'"></span>
+                                     </button></td>
+                              <td> {{collateralAccount.id}} </td>
+                              <td> {{collateralAccount.name}} </td>
+                            </tr>
+                            <tr ng-if="collateralAccount.showSecurityList" ng-repeat-end="" >
+                              <td><b>Security Details</b></td>
+                          <td colspan="6">
+                    <table class="table table-condensed table-hover table-bordered">
+                        <thead class= "bg-warning">
+                                <tr>
+                                  <td>id</td>
+                                  <td>name</td>
+                                  <td>cusip</td>
+                                  <td>quantity</td>
+                                  <td>price</td>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr ng-repeat = "securityDetail in collateralAccount.securityList">
+                                  <td>{{securityDetail.id}}</td>
+                                  <td>{{securityDetail.securityName}}</td>
+                                  <td>{{securityDetail.cusip}}</td>
+                                  <td>{{securityDetail.quantity}}</td>
+                                  <td>{{securityDetail.price}}</td>
+                                </tr>
+                        </tbody>
+                     </table>
+                                  </td>
+                            </tr>
+                          </tbody>
+                         </table>
+             </div>
+            </div>
+           </div> -->
+          </div>
+         <!-- </div> -->
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>

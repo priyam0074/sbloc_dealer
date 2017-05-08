@@ -1,0 +1,19 @@
+{
+"collateralAccounts": [
+    {
+      "id": "1",
+      "name": "Collateral Account 1",
+      "count" : 4
+    },
+    {
+      "id": "2",
+      "name": "Collateral Account 2",
+      "count" : 2
+    },
+    {
+      "id": "3",
+      "name": "Collateral Account 3",
+      "count" : 3
+    }
+  ] 
+}
